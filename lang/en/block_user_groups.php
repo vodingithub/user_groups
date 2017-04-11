@@ -18,7 +18,7 @@
  * Strings for component 'block_user_groups', language 'en', branch 'MOODLE_20_STABLE'
  *
  * @package   block_user_groups
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @copyright 2007 USPTU
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['user_groups'] = 'User Groups';
