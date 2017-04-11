@@ -18,7 +18,7 @@
  * Strings for component 'block_user_groups', language 'en', branch 'MOODLE_20_STABLE'
  *
  * @package   block_user_groups
- * @copyright 2007 USPTU
+ * @copyright 2007 USPTU cgsoil@mail.ru
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['user_groups'] = 'User Groups';
