@@ -56,19 +56,22 @@ class block_user_groups extends block_base {
         $this->content->icons = array();
         $this->content->footer = '';
 		$this->content->text = '';
-	if($muid=optional_param('id',NULL, PARAM_INT)){ 
-		$courseswithactivitycounts = $DB->get_records_sql(
-			'select mc.name as cohort, mcc.name as catname
+		
+		$sql='select mc.name as cohort, mcc.name as catname
 				FROM {user} mu
-				LEFT JOIN {cohort_members} mcm ON mcm.userid=mu.id
-				LEFT JOIN {cohort} mc ON mc.id=mcm.cohortid
-				LEFT JOIN {context} mc1 ON mc.contextid=mc1.id
+				inner JOIN {cohort_members} mcm ON mcm.userid=mu.id
+				inner JOIN {cohort} mc ON mc.id=mcm.cohortid
+				inner JOIN {context} mc1 ON mc.contextid=mc1.id
 				LEFT JOIN {course_categories} mcc ON mcc.id=mc1.instanceid
 				WHERE mu.id=:userid
-				and mu.deleted=0',
-				array('userid' =>$muid ));
-      
-		$this->content->text='<div><ul>';
+				and mu.deleted=0';
+		//ѕроверка наличи€ id в запросе GET		
+		if($muid=optional_param('id',NULL, PARAM_INT)){ 
+		$courseswithactivitycounts = $DB->get_records_sql($sql, array('userid' =>$muid ));
+		//ѕроверка пользовател€, который не в ходит в когорты
+		if( count($courseswithactivitycounts)==0) return $this->content->text.='Not included in cohort';
+		
+      	$this->content->text='<div><ul>';
 		foreach($courseswithactivitycounts as $coh ){
 			if($coh->catname)$catname=$coh->catname; else $catname='System';
 			$this->content->text.='<li> '.$coh->cohort.' ('.$catname.')</li>';
