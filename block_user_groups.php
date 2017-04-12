@@ -18,7 +18,7 @@
  * Block for user cohort list.
  *
  * @package   block_user_groups
- * @copyright 2017 onwards USPTU
+ * @copyright 2017  USPTU
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
