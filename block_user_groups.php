@@ -46,9 +46,9 @@ class block_user_groups extends block_base {
 		global $DB;
         
 
-        /*if ($this->content !== NULL) {
+        if ($this->content !== NULL) {
             return $this->content;
-        }*/
+        }
        
 
         $this->content = new stdClass;
@@ -56,7 +56,7 @@ class block_user_groups extends block_base {
         $this->content->icons = array();
         $this->content->footer = '';
 		$this->content->text = '';
-	if(optional_param('id',NULL, PARAM_INT)){ $muid=required_param('id', PARAM_INT) ;}else {$muid=1;}
+	if($muid=optional_param('id',NULL, PARAM_INT)){ 
 		$courseswithactivitycounts = $DB->get_records_sql(
 			'select mc.name as cohort, mcc.name as catname
 				FROM {user} mu
@@ -68,16 +68,15 @@ class block_user_groups extends block_base {
 				and mu.deleted=0',
 				array('userid' =>$muid ));
       
-   $this->content->text='<div><ul>';
-   foreach($courseswithactivitycounts as $coh ){
-	   if($coh->catname)$catname=$coh->catname; else $catname='System';
-	$this->content->text.='<li> '.$coh->cohort.' ('.$catname.')</li>';
-   }
-   $this->content->text.='</ul></div>';
+		$this->content->text='<div><ul>';
+		foreach($courseswithactivitycounts as $coh ){
+			if($coh->catname)$catname=$coh->catname; else $catname='System';
+			$this->content->text.='<li> '.$coh->cohort.' ('.$catname.')</li>';
+		}
+		$this->content->text.='</ul></div>';
    
-   
-        unset($filteropt); // memory footprint
-
+	}
+        
         return $this->content;
     }
     
